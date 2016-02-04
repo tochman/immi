@@ -55,10 +55,10 @@ module CertificateGenerator
                              bottom_margin: 0,
                              skip_encoding: true) do |pdf|
       pdf.move_down 220
-      pdf.font 'assets/fonts/Gotham-Bold.ttf'
+      pdf.font 'assets/fonts/OpenSans-Regular.ttf'
       pdf.text details[:name], size: 44, color: '009900', indent_paragraphs: 120
       pdf.move_down 75
-      pdf.font 'assets/fonts/Gotham-Medium.ttf'
+      pdf.font 'assets/fonts/OpenSans-.ttf'
       pdf.text details[:course_name], indent_paragraphs: 120, size: 20
       pdf.text details[:course_desc], indent_paragraphs: 120, size: 20
       pdf.move_down 95
@@ -81,7 +81,7 @@ module CertificateGenerator
     s3_image_object.upload_file(image_output, acl: 'public-read')
   end
   
-    def self.get_url(url)
+  def self.get_url(url)
     begin
       BITLY.shorten(url).short_url
     rescue

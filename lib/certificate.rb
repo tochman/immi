@@ -56,7 +56,7 @@ end
   end
 
 def bitly_lookup
-  server = ENV['SERVER_URL'] || 'http://localhost:9292/verify/'
+  server = ENV['SERVER_URL'] || 'https://immi-cert.herokuapp.com/verify/'
   "#{server}#{self.identifier}"
 end
   

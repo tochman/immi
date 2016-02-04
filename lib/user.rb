@@ -11,7 +11,7 @@ class User
   property :email, String
   property :password_digest, Text
 
-  validates_confirmation_of :password, message: "Sorry, your passwords don't match"
+  validates_confirmation_of :password, message: "Dina lösenord matchar inte"
 
   before :save do
     if self.password == self.password_confirmation

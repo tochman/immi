@@ -1,8 +1,8 @@
 <h2><%= @delivery.course.title %></h2>
-<p>Course date: <%= @delivery.start_date %></p>
+<p>Medlem sedan: <%= @delivery.start_date %></p>
 
 <% if @delivery.students.any? %>
-  <div> Students:
+  <div> Medlemmar:
     <ul>
       <% @delivery.students.each do |student| %>
         <li id="student-<%= student.id %>>"><%= [student.full_name, ''].join(' ') %>

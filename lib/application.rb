@@ -37,7 +37,7 @@ class WorkshopApp < Sinatra::Base
   register do
     def auth(type)
       condition do
-        restrict_access = Proc.new { session[:flash] = 'You are not authorized to access this page'; redirect '/' }
+        restrict_access = Proc.new { session[:flash] = 'Du har inte behörighet att visa denna sida'; redirect '/' }
         restrict_access.call unless send("is_#{type}?")
       end
     end
@@ -98,14 +98,14 @@ end
 get '/courses/generate/:id', auth: :user do
   @delivery = Delivery.get(params[:id])
   if !@delivery.certificates.find(delivery_id: @delivery.id).size.nil?
-    session[:flash] = 'Certificates has already been generated'
+    session[:flash] = 'Intyg har redan skapats'
   else
     @delivery.students.each do |student|
       cert = student.certificates.create(created_at: DateTime.now, delivery: @delivery)
       keys = CertificateGenerator.generate(cert)
       cert.update(certificate_key: keys[:certificate_key], image_key: keys[:image_key])
     end
-    session[:flash] = "Generated #{@delivery.students.count} certificates"
+    session[:flash] = "Skapat #{@delivery.students.count} intyg"
   end
   redirect "/courses/deliveries/show/#{@delivery.id}"
 end
@@ -121,10 +121,10 @@ end
                   email: params[:user][:email],
                   password: params[:user][:password],
                   password_confirmation: params[:user][:password_confirmation])
-      session[:flash] = "Your account has been created, #{params[:user][:name]}"
+      session[:flash] = "Ditt konto är skapat, #{params[:user][:name]}"
       redirect '/'
     rescue
-      session[:flash] = 'Could not register you... Check your input.'
+      session[:flash] = 'Kunde inte registrera dig... Kolla vad du skrev.'
       redirect '/users/register'
     end
   end
@@ -135,14 +135,14 @@ end
 
  get '/users/logout' do
        session[:user_id] = nil
-       session[:flash] = 'Successfully logged out'
+       session[:flash] = 'Du är nu utloggad'
        redirect '/'
      end
 
    post '/users/session' do
      @user = User.authenticate(params[:email], params[:password])
      session[:user_id] = @user.id
-     session[:flash] = "Successfully logged in  #{@user.name}"
+     session[:flash] = "Inloggad som  #{@user.name}"
      redirect '/'
    end
 
