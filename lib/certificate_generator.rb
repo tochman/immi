@@ -10,14 +10,16 @@ module CertificateGenerator
   if ENV['RACK_ENV'] != 'production'
     Dotenv.load
   end
-  Bitly.use_api_version_3
+  Bitly.configure do |config|
+    config.api_version = 3
+    config.access_token = ENV['BITLY_API_KEY']
+  end
   CURRENT_ENV = ENV['RACK_ENV'] || 'development'
   PATH = "pdf/#{CURRENT_ENV}/"
   TEMPLATE = File.absolute_path('./pdf/templates/immi_bevis_2016.jpg')
   URL = ENV['SERVER_URL'] || 'http://localhost:9292/verify/'
   S3 = Aws::S3::Resource.new(region: ENV['AWS_REGION'])
   BITLY = Bitly.new(ENV['BITLY_USERNAME'], ENV['BITLY_API_KEY'])
-
   def self.generate(certificate)
     details = {name: certificate.student.full_name,
                date: certificate.delivery.start_date.to_s,
