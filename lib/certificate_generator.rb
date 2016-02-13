@@ -61,7 +61,7 @@ module CertificateGenerator
       pdf.text details[:course_name], align: :center, size: 15
       pdf.move_down 50
       pdf.font 'assets/fonts/OpenSans-Light.ttf'
-      pdf.text "Medlem sedan: " [:date], align: :left, size: 10, indent_paragraphs: 12
+      pdf.text "Medlem sedan: #{details[:date]}", align: :left, size: 10, indent_paragraphs: 12
       pdf.text "Verifiera medlemsskapet: #{get_url(details[:verify_url])}", align: :left, size: 10, indent_paragraphs: 12
     
       end
