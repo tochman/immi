@@ -12,7 +12,6 @@ class Certificate
   property :created_at, DateTime
   property :certificate_key, Text
   property :image_key, Text
-  property :year, String
 
   belongs_to :delivery
   belongs_to :student
@@ -20,10 +19,9 @@ class Certificate
   
   before :save do
     student_name = self.student.full_name
-    year = self.student.member_year
     course_name = self.delivery.course.title
     generated_at = self.created_at.to_s
-    identifier = Digest::SHA256.hexdigest("#{student_name} - #{course_name} - #{generated_at} - #{year}")
+    identifier = Digest::SHA256.hexdigest("#{student_name} - #{course_name} - #{generated_at}")
     self.identifier = identifier
     self.save!
   end
