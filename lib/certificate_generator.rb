@@ -45,7 +45,7 @@ module CertificateGenerator
   def self.make_prawn_document(details, output)
     File.delete(output) if File.exist?(output)
     Prawn::Document.generate(output,
-                             page_size: [340, 210],
+                             page_size: [210, 340],
                              background: TEMPLATE,
                              background_scale: 1,
                              page_layout: :landscape,
