@@ -4,7 +4,7 @@
 <p>Medlem sedan: <%= @certificate.delivery.start_date %></p>
 <% if @certificate.stats != 0 %>
   <div>
-    Visad <%= @certificate.stats %> <%= @certificate.stats == 1 ? 'time' : 'times' %>
+    Visad <%= @certificate.stats %> <%= @certificate.stats == 1 ? 'gång' : 'gånger' %>
   </div>
 
 <% end %>

@@ -53,16 +53,16 @@ module CertificateGenerator
                              top_margin: 0,
                              bottom_margin: 0,
                              skip_encoding: true) do |pdf|
-      pdf.move_down 20
+      pdf.move_down 80
       pdf.font 'assets/fonts/OpenSans-Bold.ttf'
       pdf.text details[:name], size: 20, align: :center
-      pdf.move_down 15
+      pdf.move_down 30
       pdf.font 'assets/fonts/OpenSans-Regular.ttf'
       pdf.text details[:course_name], align: :center, size: 15
       pdf.text details[:course_desc], align: :center, size: 10
-      pdf.move_down 15
+      pdf.move_down 45
       pdf.font 'assets/fonts/OpenSans-Light.ttf'
-      pdf.text "Verifiera medlemsskapet: #{get_url(details[:verify_url])}", align: :center, size: 12
+      pdf.text "Verifiera medlemsskapet: #{get_url(details[:verify_url])}", align: :left, size: 10
     
       end
   end
