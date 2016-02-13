@@ -58,11 +58,9 @@ module CertificateGenerator
       pdf.font 'assets/fonts/OpenSans-Regular.ttf'
       pdf.text details[:name], size: 12, color: '009900', indent_paragraphs: 120
       pdf.move_down 15
-      pdf.font 'assets/fonts/OpenSans-.ttf'
+      pdf.font 'assets/fonts/OpenSans-Bold.ttf'
       pdf.text details[:course_name], indent_paragraphs: 120, size: 20
       pdf.text details[:course_desc], indent_paragraphs: 120, size: 20
-      pdf.move_down 15
-      pdf.text "Göteborg #{details[:date]}", indent_paragraphs: 120, size: 12
       pdf.move_down 15
       pdf.text "To verify the authenticity of this Course certificate, please visit: #{get_url(details[:verify_url])}", align: :center, size: 8
     
