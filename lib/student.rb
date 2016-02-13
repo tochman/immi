@@ -4,7 +4,7 @@ class Student
   property :id, Serial
   property :full_name, String
   property :email, String
-  property :year, String
+  property :member_year, String
 
   has n, :deliveries, through: Resource
   has n, :certificates
