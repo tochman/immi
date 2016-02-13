@@ -19,6 +19,7 @@ class Certificate
   
   before :save do
     student_name = self.student.full_name
+    member_year = self.student.year
     course_name = self.delivery.course.title
     generated_at = self.created_at.to_s
     identifier = Digest::SHA256.hexdigest("#{student_name} - #{course_name} - #{generated_at}")
