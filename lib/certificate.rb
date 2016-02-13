@@ -1,7 +1,7 @@
-
 require './lib/certificate_generator'
-require 'bitly'
 require 'aws-sdk'
+require 'bitly'
+
 
 class Certificate
   include CertificateGenerator
@@ -41,23 +41,23 @@ class Certificate
   "https://#{ENV['S3_BUCKET']}.s3.amazonaws.com/#{self.image_key}"
   end
 
-def certificate_url
+ def certificate_url
   "https://#{ENV['S3_BUCKET']}.s3.amazonaws.com/#{self.certificate_key}"
-end
+ end
   
   def stats
-  Bitly.use_api_version_3
-  bitly = Bitly.new(ENV['BITLY_USERNAME'], ENV['BITLY_API_KEY'])
-   begin
-    bitly.lookup(self.bitly_lookup).global_clicks
-   rescue
-    0
-   end
+    Bitly.use_api_version_3
+    bitly = Bitly.new(ENV['BITLY_USERNAME'], ENV['BITLY_API_KEY'])
+    begin
+      bitly.lookup(self.bitly_lookup).global_clicks
+    rescue
+      0
+    end
   end
 
-def bitly_lookup
-  server = ENV['SERVER_URL'] || 'https://immi-cert.herokuapp.com/verify/'
-  "#{server}#{self.identifier}"
-end
-  
+  def bitly_lookup
+    server = ENV['SERVER_URL'] || 'http://localhost:9292/verify/'
+    "#{server}#{self.identifier}"
+  end
+
 end

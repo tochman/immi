@@ -10,10 +10,7 @@ module CertificateGenerator
   if ENV['RACK_ENV'] != 'production'
     Dotenv.load
   end
-  Bitly.configure do |config|
-    config.api_version = 3
-    config.access_token = ENV['BITLY_API_KEY']
-  end
+  Bitly.use_api_version_3
   CURRENT_ENV = ENV['RACK_ENV'] || 'development'
   PATH = "pdf/#{CURRENT_ENV}/"
   TEMPLATE = File.absolute_path('./pdf/templates/immi_bevis_2016.jpg')
@@ -81,6 +78,7 @@ module CertificateGenerator
     s3_image_object.upload_file(image_output, acl: 'public-read')
   end
   
+
   def self.get_url(url)
     begin
       BITLY.shorten(url).short_url
@@ -88,5 +86,5 @@ module CertificateGenerator
       url
     end
   end
-  
+
 end
