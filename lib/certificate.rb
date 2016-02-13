@@ -12,6 +12,7 @@ class Certificate
   property :created_at, DateTime
   property :certificate_key, Text
   property :image_key, Text
+  property :year, String
 
   belongs_to :delivery
   belongs_to :student
