@@ -54,14 +54,15 @@ module CertificateGenerator
                              bottom_margin: 0,
                              skip_encoding: true) do |pdf|
       pdf.move_down 20
-      pdf.font 'assets/fonts/OpenSans-Regular.ttf'
-      pdf.text details[:name], size: 12, color: '009900', indent_paragraphs: 120
-      pdf.move_down 15
       pdf.font 'assets/fonts/OpenSans-Bold.ttf'
-      pdf.text details[:course_name], indent_paragraphs: 120, size: 20
-      pdf.text details[:course_desc], indent_paragraphs: 120, size: 20
+      pdf.text details[:name], size: 20, align: :center
       pdf.move_down 15
-      pdf.text "To verify the authenticity of this Course certificate, please visit: #{get_url(details[:verify_url])}", align: :center, size: 8
+      pdf.font 'assets/fonts/OpenSans-Regular.ttf'
+      pdf.text details[:course_name], align: :center, size: 15
+      pdf.text details[:course_desc], align: :center, size: 10
+      pdf.move_down 15
+      pdf.font 'assets/fonts/OpenSans-light.ttf'
+      pdf.text "Verifiera medlemsskapet: #{get_url(details[:verify_url])}", align: :center, size: 12
     
       end
   end
