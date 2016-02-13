@@ -61,7 +61,7 @@ module CertificateGenerator
       pdf.text details[:course_name], align: :center, size: 15
       pdf.text details[:course_desc], align: :center, size: 10
       pdf.move_down 15
-      pdf.font 'assets/fonts/OpenSans-light.ttf'
+      pdf.font 'assets/fonts/OpenSans-Light.ttf'
       pdf.text "Verifiera medlemsskapet: #{get_url(details[:verify_url])}", align: :center, size: 12
     
       end
