@@ -19,6 +19,7 @@ module CertificateGenerator
   BITLY = Bitly.new(ENV['BITLY_USERNAME'], ENV['BITLY_API_KEY'])
   def self.generate(certificate)
     details = {name: certificate.student.full_name,
+               member_year: certificate.student.year,
                date: certificate.delivery.start_date.to_s,
                course_name: certificate.delivery.course.title,
                course_desc: certificate.delivery.course.description,
@@ -53,7 +54,7 @@ module CertificateGenerator
                              top_margin: 0,
                              bottom_margin: 0,
                              skip_encoding: true) do |pdf|
-      pdf.move_down 80
+      pdf.move_down 75
       pdf.font 'assets/fonts/OpenSans-Bold.ttf'
       pdf.text details[:name], size: 20, align: :center
       pdf.move_down 15
@@ -61,7 +62,7 @@ module CertificateGenerator
       pdf.text details[:course_name], align: :center, size: 15
       pdf.move_down 50
       pdf.font 'assets/fonts/OpenSans-Light.ttf'
-      pdf.text "Medlem sedan: #{details[:date]}", align: :left, size: 10, indent_paragraphs: 12
+      pdf.text "Medlem sedan: #{details[:member_year]}", align: :left, size: 10, indent_paragraphs: 12
       pdf.text "Verifiera medlemsskapet: #{get_url(details[:verify_url])}", align: :left, size: 10, indent_paragraphs: 12
     
       end
