@@ -25,7 +25,7 @@ module CertificateGenerator
                course_desc: certificate.delivery.course.description,
                verify_url: [URL, certificate.identifier].join('')}
 
-    file_name = [details[:name], details[:year], details[:course_name]].join('_').downcase.gsub!(/\s/, '_')
+    file_name = [details[:name], details[:date], details[:course_name]].join('_').downcase.gsub!(/\s/, '_')
 
     certificate_output = "#{PATH}#{file_name}.pdf"
     image_output = "#{PATH}#{file_name}.jpg"
@@ -62,7 +62,7 @@ module CertificateGenerator
       pdf.text details[:course_name], align: :center, size: 15
       pdf.move_down 50
       pdf.font 'assets/fonts/OpenSans-Light.ttf'
-      pdf.text "Medlem sedan: #{details[:year]}", align: :left, size: 10, indent_paragraphs: 12
+      pdf.text "Medlem sedan: #{details[:date]}", align: :left, size: 10, indent_paragraphs: 12
       pdf.text "Verifiera medlemsskapet: #{get_url(details[:verify_url])}", align: :left, size: 10, indent_paragraphs: 12
     
       end
