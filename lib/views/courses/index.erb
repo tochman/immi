@@ -1,12 +1,12 @@
 <% if @courses.any? %>
   <% @courses.each do |course| %>
-    <div id="course-<%= course.id %>">
-      <h3><%= course.title %></h3>
+    <div id="course-<%= course.id %>"> 
+      <h3><%= course.title %></h3>  <%= link_to "delete", course, :method => :delete, :confirm => "You sure?", :title => "Delete #{course.title}" %>
       <p><%= course.description %></p>
       <% if course.deliveries %>
         <p>Medlemsdatum:
           <% course.deliveries.each do |date| %>
-           <%= link_to date.start_date, "/courses/deliveries/show/#{date.id}" %> <BR>
+           <%= link_to date.start_date, "/courses/deliveries/show/#{date.id}" %> <%= link_to "delete", date, :method => :delete, :confirm => "You sure?", :title => "Delete #{date.start_date}" %><BR>
           <% end %>
         </p>
       <% end %>
