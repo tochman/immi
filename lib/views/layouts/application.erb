@@ -21,7 +21,7 @@
 <nav class="top-bar" data-topbar role="navigation">
     <ul class="title-area">
     <li class="name">
-      <a href="/"><img src="http://media.bygg.immi.nu/2016/01/200pxRd.png" height="45" /></a>
+      <a href="/"><img src="http://media.bygg.immi.nu/2016/01/200pxRd.png" height="55" /></a>
     </li>
     <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
     <li class="toggle-topbar menu-icon"><a href="#"><span>Meny</span></a></li>
@@ -34,8 +34,9 @@
         <li><p>Inloggad som <%= current_user.email %><p></li>
         <li><%= link_to 'Logga ut', '/users/logout' %></li>
       <% else %>
-        <li><%= link_to 'Registera', '/users/register' %></li>
-        <li><%= link_to 'Logga in', '/users/login' %></li>
+        <!-- <li><#%= link_to 'Registera', '/users/register' %></li> -->
+        <li><%= link_to 'IMMI.nu', 'http://www.immi.nu' %></li>
+        <!-- <li><#%= link_to 'Logga in', '/users/login' %></li>-->
       <% end %>
     </ul>
 
@@ -66,12 +67,7 @@
   <div class="row">
     <div class="small-12 columns">
       <div class="slogan"></div>
-      <p class="description">
-        Nah!
-      </p>
-
-      <p class="copywrite">Made by <i class="fi-star" style="color: white; font-size: 18px;"></i>
-        at <%= link_to 'IMMI.NU', 'http://www.IMMI.nu' %></p>
+      <p class="copywrite">Läs mer på <%= link_to 'IMMI.NU', 'http://www.IMMI.nu' %></p>
     </div>
   </div>
 </footer>
