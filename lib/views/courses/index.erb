@@ -1,12 +1,12 @@
 <% if @courses.any? %>
   <% @courses.each do |course| %>
     <div id="course-<%= course.id %>"> 
-      <h3><%= course.title %></h3>  <%= link_to "delete", course, :method => :delete, :confirm => "You sure?", :title => "Delete #{course.title}" %>
+      <h3><%= course.title %></h3>  
       <p><%= course.description %></p>
       <% if course.deliveries %>
         <p>Medlemsdatum:
           <% course.deliveries.each do |date| %>
-           <%= link_to date.start_date, "/courses/deliveries/show/#{date.id}" %> <%= link_to "delete", date, :method => :delete, :confirm => "You sure?", :title => "Delete #{date.start_date}" %><BR>
+           <%= link_to date.start_date, "/courses/deliveries/show/#{date.id}" %> <BR>
           <% end %>
         </p>
       <% end %>
@@ -17,5 +17,7 @@
   <h1>Inga medlemstyper skapade</h1>
 <% end %>
 <% if current_user %>
+<p>
   <%= link_to 'Skapa medlemstyp', '/courses/create' %>
+  </p>
 <% end %>
