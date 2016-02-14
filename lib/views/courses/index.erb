@@ -1,7 +1,7 @@
 <% if @courses.any? %>
   <% @courses.each do |course| %>
-    <div id="course-<%= course.id %>"> 
-      <h3><%= course.title %></h3>  
+    <div id="course-<%= course.id %>">
+      <h3><%= course.title %></h3>
       <p><%= course.description %></p>
       <% if course.deliveries %>
         <p>Medlemsdatum:
@@ -17,7 +17,5 @@
   <h1>Inga medlemstyper skapade</h1>
 <% end %>
 <% if current_user %>
-<p>
   <%= link_to 'Skapa medlemstyp', '/courses/create' %>
-  </p>
 <% end %>
