@@ -1,5 +1,0 @@
-<% form_for :course, '/courses/delete', id: 'delete' do |f|  %>
-    <%= hidden_field_tag :delete, name: '_method', value: 'delete' %>
-    <%= hidden_field_tag :course_id, value: @course.id %>
-    <%= f.submit "Ta bort #{@delivery.course.title}" %>
-<% end %>
