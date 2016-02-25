@@ -53,8 +53,6 @@ class WorkshopApp < Sinatra::Base
     end
   end
 
-
-
   get '/' do
     erb :index
   end
@@ -89,6 +87,19 @@ get '/courses/deliveries/show/:id' do
   erb :'courses/deliveries/show'
 end
 
+#test för ta bort medlemstyp
+#get "/courses/:id/delete" do
+#  @course = Course.get(params[:id])
+#  erb :delete
+#end
+#test för ta bort medlemstyp
+#delete "/courses/:id" do
+#  n = @course = Course.get(params[:id])
+#  n.destroy!
+#  redirect "/courses/index"
+#end
+
+
 post '/courses/deliveries/file_upload' do
   @delivery = Delivery.get(params[:id].to_i)
   CSVParse.import(params[:file][:tempfile], Student, @delivery)
@@ -114,6 +125,7 @@ end
     erb :'users/register'
 
    end
+
 
    post '/users/create' do
     begin
