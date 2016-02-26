@@ -1,4 +1,3 @@
-
 require 'sinatra/base'
 require 'padrino-helpers'
 require 'data_mapper'
@@ -26,11 +25,11 @@ class WorkshopApp < Sinatra::Base
   env = ENV['RACK_ENV'] || 'development'
   #  DataMapper.setup(:default, ENV['DATABASE_URL'] || "postgres://localhost/workshop_#{env}")
   DataMapper.setup(:default, ENV['DATABASE_URL'] || "postgres://postgres:postgres@localhost/immi-certs_#{env}")
-    DataMapper::Model.raise_on_save_failure = true
-    DataMapper.finalize
-    DataMapper.auto_upgrade!
+  DataMapper::Model.raise_on_save_failure = true
+  DataMapper.finalize
+  DataMapper.auto_upgrade!
 
-    before do
+  before do
     @user = User.get(session[:user_id]) unless is_user?
   end
 
@@ -60,74 +59,74 @@ class WorkshopApp < Sinatra::Base
   get '/courses/index' do
     @courses = Membership.all
     erb :'courses/index'
-   end
+  end
 
-   get '/courses/create', auth: :user do
-     erb :'courses/create'
-   end
+  get '/courses/create', auth: :user do
+    erb :'courses/create'
+  end
 
-   post '/courses/create' do
-     Membership.create(title: params[:course][:title],description: params[:course][:description])
+  post '/courses/create' do
+    Membership.create(title: params[:course][:title], description: params[:course][:description])
     redirect 'courses/index'
-   end
+  end
 
-   get '/courses/:id/add_date', auth: :user do
-     @course = Membership.get(params[:id])
-     erb :'courses/add_date'
-   end
+  get '/courses/:id/add_date', auth: :user do
+    @course = Membership.get(params[:id])
+    erb :'courses/add_date'
+  end
 
   post '/courses/new_date', auth: :user do
     course = Membership.get(params[:course_id])
     course.deliveries.create(start_date: params[:start_date])
     redirect 'courses/index'
- end
-
-get '/courses/deliveries/show/:id' do
-  @delivery = Delivery.get(params[:id].to_i)
-  erb :'courses/deliveries/show'
-end
-
-#test för ta bort medlemstyp
-#get "/courses/:id/delete" do
-#  @course = Course.get(params[:id])
-#  erb :delete
-#end
-#test för ta bort medlemstyp
-#delete "/courses/:id" do
-#  n = @course = Course.get(params[:id])
-#  n.destroy!
-#  redirect "/courses/index"
-#end
-
-
-post '/courses/deliveries/file_upload' do
-  @delivery = Delivery.get(params[:id].to_i)
-  CSVParse.import(params[:file][:tempfile], Student, @delivery)
-  redirect "/courses/deliveries/show/#{@delivery.id}"
-end
-
-get '/courses/generate/:id', auth: :user do
-  @delivery = Delivery.get(params[:id])
-  if !@delivery.certificates.find(delivery_id: @delivery.id).size.nil?
-    session[:flash] = 'Intyg har redan skapats'
-  else
-    @delivery.students.each do |student|
-      cert = student.certificates.create(created_at: DateTime.now, delivery: @delivery)
-      keys = CertificateGenerator.generate(cert)
-      cert.update(certificate_key: keys[:certificate_key], image_key: keys[:image_key])
-    end
-    session[:flash] = "Skapat #{@delivery.students.count} intyg"
   end
-  redirect "/courses/deliveries/show/#{@delivery.id}"
-end
 
-   get '/users/register' do
+  get '/courses/deliveries/show/:id' do
+    @delivery = Delivery.get(params[:id].to_i)
+    erb :'courses/deliveries/show'
+  end
+
+  #test för ta bort medlemstyp
+  #get "/courses/:id/delete" do
+  #  @course = Course.get(params[:id])
+  #  erb :delete
+  #end
+  #test för ta bort medlemstyp
+  #delete "/courses/:id" do
+  #  n = @course = Course.get(params[:id])
+  #  n.destroy!
+  #  redirect "/courses/index"
+  #end
+
+
+  post '/courses/deliveries/file_upload' do
+    @membership = Membership.get(params[:id].to_i)
+    CSVParse.import(params[:file][:tempfile], Student, @membership)
+    redirect "/courses/deliveries/show/#{@membership.id}"
+  end
+
+  get '/courses/generate/:id', auth: :user do
+    @membership = Membership.get(params[:id])
+    if !@membership.certificates.find(membership_id: @membership.id).size.nil?
+      session[:flash] = 'Intyg har redan skapats'
+    else
+      @membership.students.each do |student|
+        cert = student.certificates.create(created_at: DateTime.now, membership: @membership)
+        keys = CertificateGenerator.generate(cert)
+        cert.update(certificate_key: keys[:certificate_key], image_key: keys[:image_key])
+      end
+      session[:flash] = "Skapat #{@membership.students.count} intyg"
+    end
+    redirect "/courses/deliveries/show/#{@membership.id}"
+  end
+
+  get '/users/register' do
     erb :'users/register'
 
-   end
+  end
 
 
-   post '/users/create' do
+  post '/users/create' do
     begin
       User.create(name: params[:user][:name],
                   email: params[:user][:email],
@@ -142,21 +141,21 @@ end
   end
 
   get '/users/login' do
-   erb :'users/login'
-   end
+    erb :'users/login'
+  end
 
- get '/users/logout' do
-       session[:user_id] = nil
-       session[:flash] = 'Du är nu utloggad'
-       redirect '/'
-     end
+  get '/users/logout' do
+    session[:user_id] = nil
+    session[:flash] = 'Du är nu utloggad'
+    redirect '/'
+  end
 
-   post '/users/session' do
-     @user = User.authenticate(params[:email], params[:password])
-     session[:user_id] = @user.id
-     session[:flash] = "Inloggad som  #{@user.name}"
-     redirect '/'
-   end
+  post '/users/session' do
+    @user = User.authenticate(params[:email], params[:password])
+    session[:user_id] = @user.id
+    session[:flash] = "Inloggad som  #{@user.name}"
+    redirect '/'
+  end
 
   # Verification URI
   get '/verify/:hash' do

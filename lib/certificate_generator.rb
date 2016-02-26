@@ -19,6 +19,7 @@ module CertificateGenerator
   BITLY = Bitly.new(ENV['BITLY_USERNAME'], ENV['BITLY_API_KEY'])
   def self.generate(certificate)
     details = {name: certificate.student.full_name,
+               date: Date.today.strftime('%Y-%m-%d'),
                course_name: certificate.membership.title,
                course_desc: certificate.membership.description,
                verify_url: [URL, certificate.identifier].join('')}

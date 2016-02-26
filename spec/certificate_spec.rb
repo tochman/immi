@@ -39,10 +39,10 @@ describe Certificate do
         @certificate.update(certificate_key: keys[:certificate_key], image_key: keys[:image_key])
       end
       it 'can be fetched by #image_url' do
-        expect(@certificate.image_url).to eq 'https://certz.s3.amazonaws.com/pdf/test/thomas_ochman_2015-01-01_learn_to_code_101.jpg'
+        expect(@certificate.image_url).to eq "https://certz.s3.amazonaws.com/pdf/test/thomas_ochman_#{Date.today.strftime('%Y-%m-%d')}_learn_to_code_101.jpg"
       end
       it 'can be fetched by #certificate_url' do
-        expect(@certificate.certificate_url).to eq 'https://certz.s3.amazonaws.com/pdf/test/thomas_ochman_2015-01-01_learn_to_code_101.pdf'
+        expect(@certificate.certificate_url).to eq "https://certz.s3.amazonaws.com/pdf/test/thomas_ochman_#{Date.today.strftime('%Y-%m-%d')}_learn_to_code_101.pdf"
       end
     end
   end
