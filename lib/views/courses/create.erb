@@ -1,4 +1,4 @@
-<% form_for :course, '/courses/create', id: 'create' do |f|  %>
+<% form_for :membership, '/membership/create', id: 'create' do |f|  %>
   <%= f.text_field_block :title, caption: 'Medlemstyp' %>
   <%= f.text_field_block :description, caption: 'Ev beskrivning' %>
   <%= f.submit 'Skapa' %>

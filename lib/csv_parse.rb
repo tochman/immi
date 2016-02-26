@@ -15,7 +15,11 @@ module CSVParse
 
   def self.create_instance(parent, obj, dataset)
     dataset.each do |data|
-      student = obj.first_or_create({full_name: data[:full_name]}, {full_name: data[:full_name], email: data[:email], member_year: data[:member_year]})
+      student = obj.first_or_create({full_name: data[:full_name]},
+                                    {full_name: data[:full_name],
+                                     email: data[:email],
+                                     member_year: data[:member_year],
+                                     membership_id: parent.id})
       student.memberships << parent unless student.memberships.include? parent
       student.save
     end

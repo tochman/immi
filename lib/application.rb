@@ -57,16 +57,16 @@ class WorkshopApp < Sinatra::Base
   end
 
   get '/courses/index' do
-    @courses = Membership.all
+    @memberships = Membership.all
     erb :'courses/index'
   end
 
-  get '/courses/create', auth: :user do
+  get '/membership/create', auth: :user do
     erb :'courses/create'
   end
 
-  post '/courses/create' do
-    Membership.create(title: params[:course][:title], description: params[:course][:description])
+  post '/membership/create' do
+    Membership.create(title: params[:membership][:title], description: params[:membership][:description])
     redirect 'courses/index'
   end
 
@@ -81,8 +81,8 @@ class WorkshopApp < Sinatra::Base
     redirect 'courses/index'
   end
 
-  get '/courses/deliveries/show/:id' do
-    @delivery = Delivery.get(params[:id].to_i)
+  get '/courses/memberships/show/:id' do
+    @membership = Membership.get(params[:id].to_i)
     erb :'courses/deliveries/show'
   end
 
@@ -102,7 +102,7 @@ class WorkshopApp < Sinatra::Base
   post '/courses/deliveries/file_upload' do
     @membership = Membership.get(params[:id].to_i)
     CSVParse.import(params[:file][:tempfile], Student, @membership)
-    redirect "/courses/deliveries/show/#{@membership.id}"
+    redirect "/courses/memberships/show/#{@membership.id}"
   end
 
   get '/courses/generate/:id', auth: :user do
@@ -111,7 +111,8 @@ class WorkshopApp < Sinatra::Base
       session[:flash] = 'Intyg har redan skapats'
     else
       @membership.students.each do |student|
-        cert = student.certificates.create(created_at: DateTime.now, membership: @membership)
+        binding.pry
+        cert = student.certificates.create(created_at: DateTime.now, membership_id: @membership_id)
         keys = CertificateGenerator.generate(cert)
         cert.update(certificate_key: keys[:certificate_key], image_key: keys[:image_key])
       end
