@@ -1,3 +1,4 @@
 .env
 pdf/test/*
 .DS_Store
+.idea/

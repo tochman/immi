@@ -4,8 +4,8 @@ class Delivery
   property :id, Serial
   property :start_date, Date
 
-  belongs_to :course
+  #belongs_to :membership
   
-  has n, :students, through: Resource
-  has n, :certificates, through: :students
+  #has n, :students, through: Resource
+  #has n, :certificates, through: :students
 end

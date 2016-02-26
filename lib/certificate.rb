@@ -13,15 +13,15 @@ class Certificate
   property :certificate_key, Text
   property :image_key, Text
 
-  belongs_to :delivery
+  belongs_to :membership
   belongs_to :student
   
   
   before :save do
     student_name = self.student.full_name
-    course_name = self.delivery.course.title
+    title = self.membership.title
     generated_at = self.created_at.to_s
-    identifier = Digest::SHA256.hexdigest("#{student_name} - #{course_name} - #{generated_at}")
+    identifier = Digest::SHA256.hexdigest("#{student_name} - #{title} - #{generated_at}")
     self.identifier = identifier
     self.save!
   end

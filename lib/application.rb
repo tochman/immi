@@ -6,7 +6,7 @@ if ENV['RACK_ENV'] != 'production'
   require 'pry'
   require 'dotenv'
 end
-require './lib/course'
+require './lib/membership'
 require './lib/user'
 require './lib/delivery'
 require './lib/student'
@@ -58,7 +58,7 @@ class WorkshopApp < Sinatra::Base
   end
 
   get '/courses/index' do
-    @courses = Course.all
+    @courses = Membership.all
     erb :'courses/index'
    end
 
@@ -67,17 +67,17 @@ class WorkshopApp < Sinatra::Base
    end
 
    post '/courses/create' do
-     Course.create(title: params[:course][:title],description: params[:course][:description])
+     Membership.create(title: params[:course][:title],description: params[:course][:description])
     redirect 'courses/index'
    end
 
    get '/courses/:id/add_date', auth: :user do
-     @course = Course.get(params[:id])
+     @course = Membership.get(params[:id])
      erb :'courses/add_date'
    end
 
   post '/courses/new_date', auth: :user do
-    course = Course.get(params[:course_id])
+    course = Membership.get(params[:course_id])
     course.deliveries.create(start_date: params[:start_date])
     redirect 'courses/index'
  end

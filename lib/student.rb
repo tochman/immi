@@ -6,6 +6,7 @@ class Student
   property :email, String
   property :member_year, Integer
 
-  has n, :deliveries, through: Resource
+  has n, :memberships, through: Resource
+  #has n, :deliveries, through: Resource
   has n, :certificates
 end

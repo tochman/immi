@@ -19,10 +19,8 @@ module CertificateGenerator
   BITLY = Bitly.new(ENV['BITLY_USERNAME'], ENV['BITLY_API_KEY'])
   def self.generate(certificate)
     details = {name: certificate.student.full_name,
-               year: certificate.student.member_year.to_s,
-               date: certificate.delivery.start_date.to_s,
-               course_name: certificate.delivery.course.title,
-               course_desc: certificate.delivery.course.description,
+               course_name: certificate.membership.title,
+               course_desc: certificate.membership.description,
                verify_url: [URL, certificate.identifier].join('')}
 
     file_name = [details[:name], details[:date], details[:course_name]].join('_').downcase.gsub!(/\s/, '_')

@@ -1,10 +1,10 @@
-require './lib/course'
+require './lib/membership'
 
-describe Course do
+describe Membership do
   it { is_expected.to have_property :id }
   it { is_expected.to have_property :title }
   it { is_expected.to have_property :description }
 
-  it { is_expected.to have_many :deliveries }
-
+  it { is_expected.to have_many :students }
+  it { is_expected.to have_many :certificates }
 end

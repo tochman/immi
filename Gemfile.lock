@@ -240,6 +240,3 @@ DEPENDENCIES
   rspec
   sinatra
   tilt (~> 1.4, >= 1.4.1)
-
-BUNDLED WITH
-   1.11.2
